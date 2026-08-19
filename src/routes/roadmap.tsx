@@ -77,7 +77,14 @@ function RoadmapPage() {
   const { track } = Route.useSearch();
   const navigate = useNavigate();
   const [selected, setSelected] = useState<{ node: RoadmapNode; track: Track } | null>(null);
-  const [activeTrack, setActiveTrack] = useState<string>(track ?? getSelectedTrack() ?? "software");
+  const [activeTrack, setActiveTrack] = useState<string>(track ?? "software");
+
+  useEffect(() => {
+    if (!track) {
+      const saved = getSelectedTrack();
+      if (saved) setActiveTrack(saved);
+    }
+  }, [track]);
 
   useEffect(() => {
     setSelectedTrack(activeTrack);
