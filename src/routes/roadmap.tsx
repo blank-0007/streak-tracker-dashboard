@@ -6,7 +6,11 @@ import { NodeDetailPanel } from "@/components/streak/NodeDetailPanel";
 import { foundations, tracks, type RoadmapNode, type Track } from "@/components/streak/roadmap-data";
 
 export const Route = createFileRoute("/roadmap")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    track: typeof search.track === "string" ? search.track : undefined,
+  }),
   head: () => ({
+
     meta: [
       { title: "Career Roadmap — Streak" },
       {

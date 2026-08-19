@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RoadmapRouteImport } from './routes/roadmap'
+import { Route as TracksRouteImport } from './routes/tracks'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,31 +23,40 @@ const RoadmapRoute = RoadmapRouteImport.update({
   path: '/roadmap',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TracksRoute = TracksRouteImport.update({
+  id: '/tracks',
+  path: '/tracks',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/roadmap': typeof RoadmapRoute
+  '/tracks': typeof TracksRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/roadmap': typeof RoadmapRoute
+  '/tracks': typeof TracksRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/roadmap': typeof RoadmapRoute
+  '/tracks': typeof TracksRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/roadmap'
+  fullPaths: '/' | '/roadmap' | '/tracks'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/roadmap'
-  id: '__root__' | '/' | '/roadmap'
+  to: '/' | '/roadmap' | '/tracks'
+  id: '__root__' | '/' | '/roadmap' | '/tracks'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   RoadmapRoute: typeof RoadmapRoute
+  TracksRoute: typeof TracksRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +75,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RoadmapRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tracks': {
+      id: '/tracks'
+      path: '/tracks'
+      fullPath: '/tracks'
+      preLoaderRoute: typeof TracksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   RoadmapRoute: RoadmapRoute,
+  TracksRoute: TracksRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
