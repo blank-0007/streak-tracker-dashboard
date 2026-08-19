@@ -119,6 +119,7 @@ function TrackCard({ track, align }: { track: (typeof tracks)[number]; align: "l
     <Link
       to="/roadmap"
       search={{ track: track.id }}
+      onClick={() => setSelectedTrack(track.id)}
       className={`group block rounded-2xl border bg-card/70 p-4 transition-all hover:-translate-y-0.5 ${
         align === "right" ? "lg:text-right" : ""
       }`}
