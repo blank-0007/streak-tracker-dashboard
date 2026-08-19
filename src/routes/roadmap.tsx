@@ -73,8 +73,10 @@ function NodeChip({
 }
 
 function RoadmapPage() {
+  const { track } = Route.useSearch();
   const [selected, setSelected] = useState<{ node: RoadmapNode; track: Track } | null>(null);
-  const [activeTrack, setActiveTrack] = useState<string>("software");
+  const [activeTrack, setActiveTrack] = useState<string>(track ?? "software");
+
 
   return (
     <div className="min-h-screen bg-background text-foreground">
