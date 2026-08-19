@@ -1,7 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { ArrowLeft, ArrowRight, Award, FileCheck, Hexagon, Sparkles } from "lucide-react";
 import { TopNav } from "@/components/streak/TopNav";
 import { foundations, tracks } from "@/components/streak/roadmap-data";
+import { getSelectedTrack, setSelectedTrack } from "@/hooks/use-selected-track";
 
 export const Route = createFileRoute("/tracks")({
   head: () => ({
@@ -25,8 +27,14 @@ export const Route = createFileRoute("/tracks")({
 });
 
 function TracksPage() {
+  const navigate = useNavigate();
   const left = tracks.slice(0, 3);
   const right = tracks.slice(3);
+
+  useEffect(() => {
+    const saved = getSelectedTrack();
+    if (saved) navigate({ to: "/roadmap", search: { track: saved }, replace: true });
+  }, [navigate]);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -111,6 +119,7 @@ function TrackCard({ track, align }: { track: (typeof tracks)[number]; align: "l
     <Link
       to="/roadmap"
       search={{ track: track.id }}
+      onClick={() => setSelectedTrack(track.id)}
       className={`group block rounded-2xl border bg-card/70 p-4 transition-all hover:-translate-y-0.5 ${
         align === "right" ? "lg:text-right" : ""
       }`}

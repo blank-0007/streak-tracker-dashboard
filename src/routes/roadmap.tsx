@@ -1,9 +1,10 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { ArrowLeft, Check, Lock, Search } from "lucide-react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { Check, Lock, Search, Unlink } from "lucide-react";
 import { TopNav } from "@/components/streak/TopNav";
 import { NodeDetailPanel } from "@/components/streak/NodeDetailPanel";
 import { foundations, tracks, type RoadmapNode, type Track } from "@/components/streak/roadmap-data";
+import { clearSelectedTrack, getSelectedTrack, setSelectedTrack } from "@/hooks/use-selected-track";
 
 export const Route = createFileRoute("/roadmap")({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -74,9 +75,25 @@ function NodeChip({
 
 function RoadmapPage() {
   const { track } = Route.useSearch();
+  const navigate = useNavigate();
   const [selected, setSelected] = useState<{ node: RoadmapNode; track: Track } | null>(null);
   const [activeTrack, setActiveTrack] = useState<string>(track ?? "software");
 
+  useEffect(() => {
+    if (!track) {
+      const saved = getSelectedTrack();
+      if (saved) setActiveTrack(saved);
+    }
+  }, [track]);
+
+  useEffect(() => {
+    setSelectedTrack(activeTrack);
+  }, [activeTrack]);
+
+  const deselect = () => {
+    clearSelectedTrack();
+    navigate({ to: "/tracks" });
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -84,9 +101,12 @@ function RoadmapPage() {
       <div className="flex flex-col lg:h-[calc(100vh-4rem)] lg:flex-row">
         {/* Sidebar */}
         <aside className="w-full shrink-0 border-b border-border bg-card/60 p-5 lg:w-64 lg:border-b-0 lg:border-r">
-          <Link to="/tracks" className="mb-5 inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-primary">
-            <ArrowLeft className="size-3.5" /> Change career track
-          </Link>
+          <button
+            onClick={deselect}
+            className="mb-5 inline-flex items-center gap-2 rounded-lg border border-border px-3 py-1.5 text-xs text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+          >
+            <Unlink className="size-3.5" /> Deselect career track
+          </button>
           <h2 className="mb-3 text-[10px] tracking-[0.16em] text-muted-foreground">CAREER TRACKS</h2>
           <ul className="space-y-1">
             {tracks.map((t) => (
