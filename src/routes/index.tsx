@@ -1,24 +1,48 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { TopNav } from "@/components/streak/TopNav";
+import { OverviewCard } from "@/components/streak/OverviewCard";
+import { CareerMeterCard } from "@/components/streak/CareerMeterCard";
+import { StreakCalendarCard } from "@/components/streak/StreakCalendarCard";
+import { TodaysTargetsCard } from "@/components/streak/TodaysTargetsCard";
+import { MissedMissionsCard } from "@/components/streak/MissedMissionsCard";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Streak — Career Streak & Mission Dashboard" },
+      {
+        name: "description",
+        content:
+          "Track daily streaks, career readiness and missed missions in one dark-mode gamified dashboard built for aspiring engineers.",
+      },
+      { property: "og:title", content: "Streak — Career Streak & Mission Dashboard" },
+      {
+        property: "og:description",
+        content: "Daily streaks, career chance meter and mission tracking in one gamified dashboard.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen bg-background text-foreground">
+      <TopNav />
+      <main className="mx-auto max-w-[1400px] px-4 py-6 sm:px-6">
+        <h1 className="sr-only">Streak dashboard</h1>
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[1.15fr_1fr] xl:grid-cols-[1.05fr_1.1fr_0.95fr]">
+          <OverviewCard />
+          <CareerMeterCard />
+          <StreakCalendarCard />
+        </div>
+        <div className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-2">
+          <TodaysTargetsCard />
+          <MissedMissionsCard />
+        </div>
+      </main>
     </div>
   );
 }
