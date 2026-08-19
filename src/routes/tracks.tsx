@@ -1,7 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { ArrowLeft, ArrowRight, Award, FileCheck, Hexagon, Sparkles } from "lucide-react";
 import { TopNav } from "@/components/streak/TopNav";
 import { foundations, tracks } from "@/components/streak/roadmap-data";
+import { getSelectedTrack, setSelectedTrack } from "@/hooks/use-selected-track";
 
 export const Route = createFileRoute("/tracks")({
   head: () => ({
