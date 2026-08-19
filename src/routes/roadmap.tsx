@@ -84,8 +84,8 @@ function RoadmapPage() {
       <div className="flex flex-col lg:h-[calc(100vh-4rem)] lg:flex-row">
         {/* Sidebar */}
         <aside className="w-full shrink-0 border-b border-border bg-card/60 p-5 lg:w-64 lg:border-b-0 lg:border-r">
-          <Link to="/" className="mb-5 inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-primary">
-            <ArrowLeft className="size-3.5" /> Back to dashboard
+          <Link to="/tracks" className="mb-5 inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-primary">
+            <ArrowLeft className="size-3.5" /> Change career track
           </Link>
           <h2 className="mb-3 text-[10px] tracking-[0.16em] text-muted-foreground">CAREER TRACKS</h2>
           <ul className="space-y-1">
