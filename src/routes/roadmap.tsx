@@ -7,8 +7,9 @@ import { foundations, tracks, type RoadmapNode, type Track } from "@/components/
 
 export const Route = createFileRoute("/roadmap")({
   validateSearch: (search: Record<string, unknown>) => ({
-    track: typeof search.track === "string" ? search.track : undefined,
+    track: typeof search["track"] === "string" ? (search["track"] as string) : undefined,
   }),
+
   head: () => ({
 
     meta: [
