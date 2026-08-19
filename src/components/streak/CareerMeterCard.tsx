@@ -14,7 +14,7 @@ export function CareerMeterCard() {
     <section className="card-glow rounded-2xl border border-border bg-card p-6">
       <div className="flex items-center justify-between">
         <h2 className="text-xs font-medium tracking-[0.18em] text-muted-foreground">CAREER CHANCE METER</h2>
-        <Link to="/roadmap" className="flex items-center gap-1 text-xs font-medium text-primary hover:underline">
+        <Link to="/tracks" className="flex items-center gap-1 text-xs font-medium text-primary hover:underline">
           Roadmap <ArrowRight className="size-3.5" />
         </Link>
       </div>
