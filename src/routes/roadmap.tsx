@@ -1,9 +1,10 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
-import { ArrowLeft, Check, Lock, Search } from "lucide-react";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { Check, Lock, Search, Unlink } from "lucide-react";
 import { TopNav } from "@/components/streak/TopNav";
 import { NodeDetailPanel } from "@/components/streak/NodeDetailPanel";
 import { foundations, tracks, type RoadmapNode, type Track } from "@/components/streak/roadmap-data";
+import { clearSelectedTrack, getSelectedTrack, setSelectedTrack } from "@/hooks/use-selected-track";
 
 export const Route = createFileRoute("/roadmap")({
   validateSearch: (search: Record<string, unknown>) => ({
