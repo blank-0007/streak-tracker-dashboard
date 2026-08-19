@@ -27,8 +27,14 @@ export const Route = createFileRoute("/tracks")({
 });
 
 function TracksPage() {
+  const navigate = useNavigate();
   const left = tracks.slice(0, 3);
   const right = tracks.slice(3);
+
+  useEffect(() => {
+    const saved = getSelectedTrack();
+    if (saved) navigate({ to: "/roadmap", search: { track: saved }, replace: true });
+  }, [navigate]);
 
   return (
     <div className="min-h-screen bg-background text-foreground">
