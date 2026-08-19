@@ -199,12 +199,6 @@ function RoadmapPage() {
             </div>
           </div>
 
-          <div className="border-t border-border px-5 py-3">
-            <p className="mb-2 text-[11px] text-muted-foreground">Global Progress: 35%</p>
-            <div className="h-1.5 w-full rounded-full bg-secondary">
-              <div className="h-full w-[35%] rounded-full bg-primary shadow-[var(--glow-primary)]" />
-            </div>
-          </div>
         </main>
 
         {selected && (
